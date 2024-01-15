@@ -1,11 +1,18 @@
-'use client';
+"use client"
 
-import React from "react"
-import Link from 'next/link'
-import ModeToggle from './ModeToggle'
+import Link from "next/link";
+import { usePathname } from 'next/navigation'
+import ModeToggle from "./ModeToggle";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 
 export default function Navbar() {
+
+    const pathname = usePathname()
+
+    const checkActivePath = (path: string) => {
+      return path === pathname
+    }
 
     const toggleNav = () => {
         const navContent = document.getElementById('nav-content');
@@ -14,57 +21,54 @@ export default function Navbar() {
         }
     };
 
-    return (
-        <>
+  return (
+    <>
+        <nav className="p-24 py-6 backdrop-blur-lg z-40 fixed top-0 w-full flex flex-wrap items-center justify-between px-4 py-6 navbar-expand-lg mb-3 border-b border-border/40">
+            <div className="flex items-center flex-shrink-0 lg:ml-24">
 
-            <div className="bg-background font-sans leading-normal tracking-normal">
-                <nav className="flex items-center justify-between flex-wrap bg-neutral-800 fixed w-full z-10 hrefp-0">
-                    
-                    <div className="block lg:hidden">
-                        <button onClick={toggleNav} id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
-                            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                        </button>
-                    </div>                        
+                <Link href="/" className="flex flex-row text-center text-primary text-3xl">
+                    Free Finance                                 
+                </Link>
 
-                    <div className="flex items-center flex-shrink-0 text-white mr-6">
-                        <a className="text-white no-underline hover:text-white hover:no-underline" href="#">
-                            <span className="text-2xl pl-2 flex flex-row">
-
-                                <a className="inline-block ">
-                                    <Link href="/" className="decoration-white text-white flex flex-row text-center">
-                                        NFL Pickems                                 
-                                    </Link>
-                                </a>
-
-
-                            </span>
-                        </a>
-                    </div>
-
-
-                    <div className="w-full flex-grow lg:flex lg:items-center lg:w-auhref hidden lg:block pt-6 lg:pt-0" id="nav-content">
-                        <ul className="list-reset lg:flex justify-end flex-1 items-center">
-                            <li className="mr-3" >
-                                <a className="inline-block py-2 px-4">
-                                    <Link href="/spending" className="text-white">Spending Analysis</Link>
-                                </a>
-                            </li>
-                            <li className="mr-3">
-                                <a className="inline-block py-2 px-4">
-                                    <Link href="/budget" className="text-white">Budget 101</Link>
-                                </a>
-                            </li>
-                            <li className="mr-3" >
-                                <a className="inline-block py-2 px-4">
-                                    <ModeToggle/>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </nav>
             </div>
-        </>
 
-    )
+            <div className="lg:mr-24 block lg:hidden flex flex-row gap-4">
+                <ModeToggle/>
+                <button onClick={toggleNav} id="nav-toggle" className="flex items-center px-3 py-2 border rounded">
+                    <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            </div>
+
+            <div className="lg:mr-24 w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+                <ul className="list-reset lg:flex justify-end flex-1 items-center">
+
+                    <li className={checkActivePath("/Budget") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+
+                        <Link onClick={toggleNav} href="/Budget">Budget 101</Link>
+                        <ArrowTopRightIcon/>
+
+                    </li>
+                    <li className={checkActivePath("/Spending") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+
+                        <Link onClick={toggleNav} href="/Spending" className="">Spending Analysis</Link>
+                        <ArrowTopRightIcon/>
+
+                    </li>
+                    <li className={checkActivePath("/IntrestCalculator") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+
+                        <Link onClick={toggleNav} href="/IntrestCalculator">Intrest Calculator</Link>
+                        <ArrowTopRightIcon/>
+
+                    </li>
+                    <li className="ml-4 invisible lg:visible mr-2">
+
+                        <ModeToggle/>
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </>
+  )
 }
