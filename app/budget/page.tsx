@@ -55,7 +55,7 @@ export default function Home() {
 
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
-  const [arr, setArr] = React.useState([""])
+  const [arr, setArr] = React.useState<any>([""])
   const [income, setIncome] = React.useState()
 
   const handleIncomeChange = (e: any) => {
