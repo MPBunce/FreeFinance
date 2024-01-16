@@ -42,15 +42,15 @@ export default function Navbar() {
             <div className="lg:mr-24 w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
                 <ul className="list-reset lg:flex justify-end flex-1 items-center">
 
-                    <li className={checkActivePath("/Budget") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+                    <li className={checkActivePath("/budget") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
 
-                        <Link onClick={toggleNav} href="/Budget">Budget 101</Link>
+                        <Link onClick={toggleNav} href="/budget">Budget 101</Link>
                         <ArrowTopRightIcon/>
 
                     </li>
-                    <li className={checkActivePath("/Spending") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+                    <li className={checkActivePath("/analysis") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
 
-                        <Link onClick={toggleNav} href="/Spending" className="">Spending Analysis</Link>
+                        <Link onClick={toggleNav} href="/analysis" className="">Spending Analysis</Link>
                         <ArrowTopRightIcon/>
 
                     </li>

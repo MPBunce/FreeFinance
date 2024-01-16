@@ -71,8 +71,6 @@ export default function Home() {
 
   }, [value]); 
 
-
-
   return (
     <main>
       <Card className="justify-center mb-4 rounded-xl">
