@@ -129,6 +129,7 @@ export default function Home() {
             type="number"
             className="flex h-9 w-[350] rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
             onChange={handleIncomeChange}
+            min="0"
           />
         </CardContent>
       </Card>
@@ -149,17 +150,23 @@ export default function Home() {
                 <CardDescription>Expenses Budget</CardDescription>
               )}
             </CardHeader>
-            <CardContent className="flex flex-row">
-              <Input/>
-              <Button className="">
-                Add
-              </Button>
-            </CardContent>
             <CardContent>
+              <form className="flex flex-col gap-2">
+                <Label htmlFor="terms">Item</Label>
+                <Input placeholder="Item"/>
+                <Label htmlFor="terms">Cost</Label>
+                <Input placeholder="200$"/>
+                <Button className="">
+                  Add
+                </Button>                
+              </form>
+            </CardContent>
+            <CardContent className="flex flex-row gap-4">
+              <p>Card Content</p>
               <p>Card Content</p>
             </CardContent>
             <CardFooter>
-              <p>Card Footer</p>
+              <p>Total: </p>
             </CardFooter>
           </Card>
 
@@ -194,6 +201,9 @@ export default function Home() {
               <p>Card Content</p>
               <p>Card Content</p>
             </CardContent>
+            <CardFooter>
+              <p>Total: </p>
+            </CardFooter>
           </Card>
 
         </div>
@@ -212,13 +222,18 @@ export default function Home() {
                 <CardDescription>Savings & Investing Budget</CardDescription>
               )}
             </CardHeader>
-            <CardContent className="flex flex-row">
-              <Input/>
-              <Button className="">
-                Add
-              </Button>
+            <CardContent>
+              <form className="flex flex-col gap-2">
+                <Label htmlFor="terms">Item</Label>
+                <Input placeholder="Item"/>
+                <Label htmlFor="terms">Cost</Label>
+                <Input placeholder="200$"/>
+                <Button className="">
+                  Add
+                </Button>                
+              </form>
             </CardContent>
-            <CardContent className="flex flex-row gap-8">
+            <CardContent className="flex flex-row gap-4">
               <p>Card Content</p>
               <p>Card Content</p>
             </CardContent>
