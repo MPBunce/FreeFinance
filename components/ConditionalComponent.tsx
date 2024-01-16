@@ -4,12 +4,12 @@ import InputOne from './InputOne';
 import InputTwo from './InputTwo';
 import InputThree from './InputThree';
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card"
 
 export default function Form (page: Number) {
