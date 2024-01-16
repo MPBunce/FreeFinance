@@ -223,7 +223,7 @@ export default function Home() {
               <p>Card Content</p>
             </CardContent>
             <CardFooter>
-              <p>Card Footer</p>
+              <p>Total: </p>
             </CardFooter>
           </Card>
 
