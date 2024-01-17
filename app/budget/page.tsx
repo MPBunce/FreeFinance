@@ -71,8 +71,32 @@ export default function Home() {
 
   }, [value]); 
 
+
+  const [expense, setExpense] = React.useState<Number>(0)
+  const [expenseName, setExpenseName] = React.useState<String>("")
+  const [expenseArray, setExpenseArray] = React.useState<any>([]);
+
+  const updateArray = () => {
+    console.log("Expense Name:", expenseName);
+    console.log("Expense Amount:", expense);
+  
+    // Update the array with the new expense name and amount
+    setExpenseArray([...expenseArray, { name: expenseName, amount: expense }]);
+  
+    // Clear input fields
+    setExpenseName('');
+    setExpense(0);
+  };
+
+  const deleteItem = (index: any) => {
+    const updatedArray = [...expenseArray];
+    updatedArray.splice(index, 1);
+    setExpenseArray(updatedArray);
+  };
+
   return (
     <main>
+
       <Card className="justify-center mb-4 rounded-xl">
         <CardHeader>
           <CardTitle className="text-center">Budget Structure</CardTitle>
@@ -125,7 +149,7 @@ export default function Home() {
           </Popover>
           <input
             type="number"
-            placeholder="$4000.00"
+            placeholder="$4000"
             className="flex h-9 max-w-24 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
             onChange={handleIncomeChange}
             min="0"
@@ -150,19 +174,29 @@ export default function Home() {
               )}
             </CardHeader>
             <CardContent>
-              <form className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="terms">Item</Label>
-                <Input placeholder="Item"/>
+                <Input placeholder="Rent, Gas, Food, etc..." onChange={(e) => setExpenseName(e.target.value)} />
                 <Label htmlFor="terms">Cost</Label>
-                <Input placeholder="200$"/>
-                <Button className="">
+                <Input placeholder="200$" onChange={(e: any) => setExpense(e.target.value)}/>
+                <Button type="button" onClick={updateArray} className="">
                   Add
                 </Button>                
-              </form>
+              </div>
             </CardContent>
             <CardContent className="flex flex-row gap-4">
               <p>Card Content</p>
               <p>Card Content</p>
+            </CardContent>
+            <CardContent>
+            <ul>
+              {expenseArray.map((item: any, index: any) => (
+                <li key={index}>
+                  Name: {item.name}, Amount: {item.amount.toFixed(2)}
+                  <Button onClick={() => deleteItem(index)} type="button">Delete</Button>
+                </li>
+              ))}
+            </ul>
             </CardContent>
             <CardFooter>
               <p>Total: </p>
@@ -249,6 +283,7 @@ export default function Home() {
           Download As Excel
         </Button>
       </div>
+
     </main>
   )
 }
