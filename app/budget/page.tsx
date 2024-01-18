@@ -63,29 +63,29 @@ export default function Home() {
   };
 
   React.useEffect(() => {
-    // Update your array based on the watchedValue
-    // You can perform any logic you need here
     const updatedArray = value.split("-");
-    // Update the state of yourArray
     setArr(updatedArray);
-
   }, [value]); 
 
-
-  const [expense, setExpense] = React.useState<Number>(0)
+  const [expense, setExpense] = React.useState<number | String >('')
   const [expenseName, setExpenseName] = React.useState<String>("")
   const [expenseArray, setExpenseArray] = React.useState<any>([]);
+  const [expenseSum, setExpenseSum] = React.useState<number | null>(null)
 
   const updateArray = () => {
+    if(expenseName.length < 1){
+      return
+    }
+    if(expense === null){
+      return
+    }
     console.log("Expense Name:", expenseName);
     console.log("Expense Amount:", expense);
-  
     // Update the array with the new expense name and amount
-    setExpenseArray([...expenseArray, { name: expenseName, amount: expense }]);
-  
+    setExpenseArray([...expenseArray, { name: expenseName, amount: Number(expense) }]);
     // Clear input fields
     setExpenseName('');
-    setExpense(0);
+    setExpense('');
   };
 
   const deleteItem = (index: any) => {
@@ -93,6 +93,15 @@ export default function Home() {
     updatedArray.splice(index, 1);
     setExpenseArray(updatedArray);
   };
+
+  React.useEffect(() => {
+    var temp: number = 0
+    for (let i = 0; i < expenseArray.length; i++) {
+      temp = temp + expenseArray[i].amount
+    }
+    setExpenseSum(temp)
+  }, [expenseArray]); 
+
 
   return (
     <main>
@@ -174,32 +183,45 @@ export default function Home() {
               )}
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <Label htmlFor="terms">Item</Label>
-                <Input placeholder="Rent, Gas, Food, etc..." onChange={(e) => setExpenseName(e.target.value)} />
+                <input 
+                  value={expenseName}
+                  placeholder="Rent, Gas, Food, etc..."
+                  onChange={(e: any) => setExpenseName(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
                 <Label htmlFor="terms">Cost</Label>
-                <Input placeholder="200$" onChange={(e: any) => setExpense(e.target.value)}/>
-                <Button type="button" onClick={updateArray} className="">
+                <input
+                  type="number"
+                  placeholder="200$" 
+                  value={expense}
+                  onChange={(e: any) => setExpense(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
+                <Button type="button" onClick={updateArray} >
                   Add
                 </Button>                
               </div>
             </CardContent>
             <CardContent className="flex flex-row gap-4">
-              <p>Card Content</p>
-              <p>Card Content</p>
+              <p>Expense:</p>
+              <p>Amount:</p>
             </CardContent>
             <CardContent>
             <ul>
               {expenseArray.map((item: any, index: any) => (
-                <li key={index}>
-                  Name: {item.name}, Amount: {item.amount.toFixed(2)}
-                  <Button onClick={() => deleteItem(index)} type="button">Delete</Button>
+                <li className="flex flex-row space-between" key={index}>
+                  <div >
+                    {item.name}:  ${item.amount}                    
+                  </div>
+                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
                 </li>
               ))}
             </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: </p>
+              <p>Total: {expenseSum}</p>
             </CardFooter>
           </Card>
 
