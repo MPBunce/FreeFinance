@@ -67,8 +67,8 @@ export default function Home() {
     setArr(updatedArray);
   }, [value]); 
 
-  const [expense, setExpense] = React.useState<number | String >('')
-  const [expenseName, setExpenseName] = React.useState<String>("")
+  const [expense, setExpense] = React.useState<number | string >('')
+  const [expenseName, setExpenseName] = React.useState<string>("")
   const [expenseArray, setExpenseArray] = React.useState<any>([]);
   const [expenseSum, setExpenseSum] = React.useState<number | null>(null)
 
