@@ -54,9 +54,9 @@ export default function Navbar() {
                         <ArrowTopRightIcon/>
 
                     </li>
-                    <li className={checkActivePath("/IntrestCalculator") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
+                    <li className={checkActivePath("/calculator") ? "text-primary ml-4 py-4 flex flex-row hover:text-primary" : "ml-4 py-4 flex flex-row hover:text-primary"}>
 
-                        <Link onClick={toggleNav} href="/IntrestCalculator">Intrest Calculator</Link>
+                        <Link onClick={toggleNav} href="/calculator">Intrest Calculator</Link>
                         <ArrowTopRightIcon/>
 
                     </li>
