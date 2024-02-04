@@ -67,6 +67,7 @@ export default function Home() {
     setArr(updatedArray);
   }, [value]); 
 
+  //Expenses Array
   const [expense, setExpense] = React.useState<number | string >('')
   const [expenseName, setExpenseName] = React.useState<string>("")
   const [expenseArray, setExpenseArray] = React.useState<any>([]);
@@ -194,7 +195,7 @@ export default function Home() {
                 <Label htmlFor="terms">Cost</Label>
                 <input
                   type="number"
-                  placeholder="200$" 
+                  placeholder="500$" 
                   value={expense}
                   onChange={(e: any) => setExpense(e.target.value)}
                   className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
@@ -204,15 +205,11 @@ export default function Home() {
                 </Button>                
               </div>
             </CardContent>
-            <CardContent className="flex flex-row gap-4">
-              <p>Expense:</p>
-              <p>Amount:</p>
-            </CardContent>
             <CardContent>
             <ul>
               {expenseArray.map((item: any, index: any) => (
-                <li className="flex flex-row space-between" key={index}>
-                  <div >
+                <li className="my-2 flex justify-between" key={index}>
+                  <div className="">
                     {item.name}:  ${item.amount}                    
                   </div>
                   <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
@@ -228,72 +225,110 @@ export default function Home() {
         </div>
         <div>
 
-          <Card>
+        <Card>
             <CardHeader>
-              {arr[1] ? (
+              {arr[0] ? (
                 <CardTitle>Spending - {arr[1]}%</CardTitle>
               ) : (
                 <CardTitle>Spending</CardTitle>
               )}
-              {arr[1] && income ? (
+              {arr[0] && income ? (
                 <CardDescription>Spending Budget: {(arr[1] * income )/100}$</CardDescription>
               ) : (
                 <CardDescription>Spending Budget</CardDescription>
               )}
             </CardHeader>
             <CardContent>
-              <form className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <Label htmlFor="terms">Item</Label>
-                <Input placeholder="Item"/>
+                <input 
+                  value={expenseName}
+                  placeholder="Netflix, Games, Clothing, etc..."
+                  onChange={(e: any) => setExpenseName(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
                 <Label htmlFor="terms">Cost</Label>
-                <Input placeholder="200$"/>
-                <Button className="">
+                <input
+                  type="number"
+                  placeholder="400$" 
+                  value={expense}
+                  onChange={(e: any) => setExpense(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
+                <Button type="button" onClick={updateArray} >
                   Add
                 </Button>                
-              </form>
+              </div>
             </CardContent>
-            <CardContent className="flex flex-row gap-4">
-              <p>Card Content</p>
-              <p>Card Content</p>
+            <CardContent>
+            <ul>
+              {expenseArray.map((item: any, index: any) => (
+                <li className="my-2 flex justify-between" key={index}>
+                  <div className="">
+                    {item.name}:  ${item.amount}                    
+                  </div>
+                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
+                </li>
+              ))}
+            </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: </p>
+              <p>Total: {expenseSum}</p>
             </CardFooter>
           </Card>
 
         </div>
         <div>
 
-          <Card>
+        <Card>
             <CardHeader>
-              {arr[2] ? (
-                <CardTitle>Savings & Investing - {arr[2]}%</CardTitle>
+              {arr[0] ? (
+                <CardTitle>Savings - {arr[2]}%</CardTitle>
               ) : (
-                <CardTitle>Savings & Investing</CardTitle>
+                <CardTitle>Savings</CardTitle>
               )}
-              {arr[1] && income ? (
-                <CardDescription>Savings & Investing Budget: {(arr[2] * income )/100}$</CardDescription>
+              {arr[0] && income ? (
+                <CardDescription>Savings Budget: {(arr[2] * income )/100}$</CardDescription>
               ) : (
-                <CardDescription>Savings & Investing Budget</CardDescription>
+                <CardDescription>Savings Budget</CardDescription>
               )}
             </CardHeader>
             <CardContent>
-              <form className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <Label htmlFor="terms">Item</Label>
-                <Input placeholder="Item"/>
+                <input 
+                  value={expenseName}
+                  placeholder="Investing, Saving, etc..."
+                  onChange={(e: any) => setExpenseName(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
                 <Label htmlFor="terms">Cost</Label>
-                <Input placeholder="200$"/>
-                <Button className="">
+                <input
+                  type="number"
+                  placeholder="200$" 
+                  value={expense}
+                  onChange={(e: any) => setExpense(e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                />
+                <Button type="button" onClick={updateArray} >
                   Add
                 </Button>                
-              </form>
+              </div>
             </CardContent>
-            <CardContent className="flex flex-row gap-4">
-              <p>Card Content</p>
-              <p>Card Content</p>
+            <CardContent>
+            <ul>
+              {expenseArray.map((item: any, index: any) => (
+                <li className="my-2 flex justify-between" key={index}>
+                  <div className="">
+                    {item.name}:  ${item.amount}                    
+                  </div>
+                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
+                </li>
+              ))}
+            </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: </p>
+              <p>Total: {expenseSum}</p>
             </CardFooter>
           </Card>
 
