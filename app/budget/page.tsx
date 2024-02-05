@@ -104,6 +104,79 @@ export default function Home() {
   }, [expenseArray]); 
 
 
+  //spendings Array
+  const [spending, setSpending] = React.useState<number | string >('')
+  const [spendingName, setSpendingName] = React.useState<string>("")
+  const [spendingArray, setSpendingArray] = React.useState<any>([]);
+  const [spendingSum, setSpendingSum] = React.useState<number | null>(null)
+
+  const updateSpending = () => {
+    if(spendingName.length < 1){
+      return
+    }
+    if(spending === null){
+      return
+    }
+    console.log("spending Name:", spendingName);
+    console.log("spending Amount:", spending);
+    // Update the array with the new spending name and amount
+    setSpendingArray([...spendingArray, { name: spendingName, amount: Number(spending) }]);
+    // Clear input fields
+    setSpendingName('');
+    setSpending('');
+  };
+
+  const deleteSpending = (index: any) => {
+    const updatedArray = [...spendingArray];
+    updatedArray.splice(index, 1);
+    setSpendingArray(updatedArray);
+  };
+
+  React.useEffect(() => {
+    var temp: number = 0
+    for (let i = 0; i < spendingArray.length; i++) {
+      temp = temp + spendingArray[i].amount
+    }
+    setSpendingSum(temp)
+  }, [spendingArray]); 
+
+  //savings Array
+  const [saving, setSaving] = React.useState<number | string >('')
+  const [savingName, setSavingName] = React.useState<string>("")
+  const [savingArray, setSavingArray] = React.useState<any>([]);
+  const [savingSum, setSavingSum] = React.useState<number | null>(null)
+
+  const updateSaving = () => {
+    if(savingName.length < 1){
+      return
+    }
+    if(saving === null){
+      return
+    }
+    console.log("saving Name:", savingName);
+    console.log("saving Amount:", saving);
+    // Update the array with the new saving name and amount
+    setSavingArray([...savingArray, { name: savingName, amount: Number(saving) }]);
+    // Clear input fields
+    setSavingName('');
+    setSaving('');
+  };
+
+  const deleteSaving = (index: any) => {
+    const updatedArray = [...savingArray];
+    updatedArray.splice(index, 1);
+    setSavingArray(updatedArray);
+  };
+
+  React.useEffect(() => {
+    var temp: number = 0
+    for (let i = 0; i < savingArray.length; i++) {
+      temp = temp + savingArray[i].amount
+    }
+    setSavingSum(temp)
+  }, [savingArray]); 
+
+
   return (
     <main>
 
@@ -218,14 +291,15 @@ export default function Home() {
             </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: {expenseSum}</p>
+              <p>Total: ${expenseSum}</p>
             </CardFooter>
           </Card>
 
         </div>
+
         <div>
 
-        <Card>
+          <Card>
             <CardHeader>
               {arr[0] ? (
                 <CardTitle>Spending - {arr[1]}%</CardTitle>
@@ -242,45 +316,46 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <Label htmlFor="terms">Item</Label>
                 <input 
-                  value={expenseName}
-                  placeholder="Netflix, Games, Clothing, etc..."
-                  onChange={(e: any) => setExpenseName(e.target.value)}
+                  value={spendingName}
+                  placeholder="Netflix, Gym, Dinner Out, etc..."
+                  onChange={(e: any) => setSpendingName(e.target.value)}
                   className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <Label htmlFor="terms">Cost</Label>
                 <input
                   type="number"
-                  placeholder="400$" 
-                  value={expense}
-                  onChange={(e: any) => setExpense(e.target.value)}
+                  placeholder="200$" 
+                  value={spending}
+                  onChange={(e: any) => setSpending(e.target.value)}
                   className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
-                <Button type="button" onClick={updateArray} >
+                <Button type="button" onClick={updateSpending} >
                   Add
                 </Button>                
               </div>
             </CardContent>
             <CardContent>
             <ul>
-              {expenseArray.map((item: any, index: any) => (
+              {spendingArray.map((item: any, index: any) => (
                 <li className="my-2 flex justify-between" key={index}>
                   <div className="">
                     {item.name}:  ${item.amount}                    
                   </div>
-                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
+                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteSpending(index)} type="button">Delete</Button>
                 </li>
               ))}
             </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: {expenseSum}</p>
+              <p>Total: ${spendingSum}</p>
             </CardFooter>
           </Card>
 
         </div>
+
         <div>
 
-        <Card>
+          <Card>
             <CardHeader>
               {arr[0] ? (
                 <CardTitle>Savings - {arr[2]}%</CardTitle>
@@ -297,49 +372,50 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <Label htmlFor="terms">Item</Label>
                 <input 
-                  value={expenseName}
+                  value={savingName}
                   placeholder="Investing, Saving, etc..."
-                  onChange={(e: any) => setExpenseName(e.target.value)}
+                  onChange={(e: any) => setSavingName(e.target.value)}
                   className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <Label htmlFor="terms">Cost</Label>
                 <input
                   type="number"
                   placeholder="200$" 
-                  value={expense}
-                  onChange={(e: any) => setExpense(e.target.value)}
+                  value={saving}
+                  onChange={(e: any) => setSaving(e.target.value)}
                   className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                 />
-                <Button type="button" onClick={updateArray} >
+                <Button type="button" onClick={updateSaving} >
                   Add
                 </Button>                
               </div>
             </CardContent>
             <CardContent>
             <ul>
-              {expenseArray.map((item: any, index: any) => (
+              {savingArray.map((item: any, index: any) => (
                 <li className="my-2 flex justify-between" key={index}>
                   <div className="">
                     {item.name}:  ${item.amount}                    
                   </div>
-                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteItem(index)} type="button">Delete</Button>
+                  <Button className="ml-2 bg-red-500 hover:bg-red-600" onClick={() => deleteSaving(index)} type="button">Delete</Button>
                 </li>
               ))}
             </ul>
             </CardContent>
             <CardFooter>
-              <p>Total: {expenseSum}</p>
+              <p>Total: ${savingSum}</p>
             </CardFooter>
           </Card>
 
         </div>
+
       </div>
 
-      <div className="m-8 flex flex-row justify-center">
+      {/* <div className="m-8 flex flex-row justify-center">
         <Button className="">
           Download As Excel
         </Button>
-      </div>
+      </div> */}
 
     </main>
   )
