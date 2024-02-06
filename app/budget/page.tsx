@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
+import Excel from 'exceljs';
 
 import {
   Card,
@@ -176,6 +177,10 @@ export default function Home() {
     setSavingSum(temp)
   }, [savingArray]); 
 
+  const writeToExcel = () => {
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Budget 101');
+  }
 
   return (
     <main>
@@ -411,11 +416,11 @@ export default function Home() {
 
       </div>
 
-      {/* <div className="m-8 flex flex-row justify-center">
-        <Button className="">
+      <div className="m-8 flex flex-row justify-center">
+        <Button className="" onClick={writeToExcel}>
           Download As Excel
         </Button>
-      </div> */}
+      </div>
 
     </main>
   )
